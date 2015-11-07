@@ -7,15 +7,15 @@
     ],
     "tasks": [
         {
-            "taskName": "build",
+            "taskName": "serve-dev",
             "args": [],
             "isBuildCommand": true,
-            "isWatching": false,
-            "problemMatcher": [
-                "$lessCompile",
-                "$tsc",
-                "$jshint"
-            ]
+            "isWatching": true
+            //"problemMatcher": [
+            //   "$lessCompile",
+            //   "$tsc",
+            //   "$jshint"
+            //]
         },
         {
             "taskName": "test",
