@@ -1,8 +1,9 @@
-(function() {
+(function () {
     'use strict';
 
-    angular.module('app.dashboard', [
+    angular.module('page.admin', [
         'app.core',
         'app.widgets'
       ]);
+
 })();
