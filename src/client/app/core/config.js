@@ -12,9 +12,13 @@
         toastr.options.positionClass = 'toast-bottom-right';
     }
 
+    // For use with Breeze
+    var remoteServiceName = 'breeze/bzdemo1';  
+
     var config = {
         appErrorPrefix: '[ggmugBz Error] ',
-        appTitle: 'ggmugBz'
+        appTitle: 'GGMUG Breeze Demo',
+        remoteServiceName: remoteServiceName,
     };
 
     core.value('config', config);
