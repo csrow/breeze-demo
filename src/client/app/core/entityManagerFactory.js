@@ -4,11 +4,12 @@
     var serviceId = 'entityManagerFactory';
 	
 	angular
-      	.module('app')
+      	.module('app.core')
       	.factory(serviceId, emFactory);
+          
     	emFactory.$inject = [
-      	'breeze',
-		'config'  
+      	     'breeze',
+             'config'
     ];
 
     function emFactory(breeze, config) {
@@ -18,7 +19,8 @@
         // Do not validate when we attach a newly created entity to an EntityManager.
         new breeze.ValidationOptions({ validateOnAttach: false }).setAsDefault();
        
-        var serviceRoot = window.location.protocol + '//' + window.location.host + '/';
+        //var serviceRoot = window.location.protocol + '//' + window.location.host + '/';
+        var serviceRoot = config.remoteServerName;
 		var serviceName = serviceRoot + config.remoteServiceName;
         var metadataStore = new breeze.MetadataStore();
 

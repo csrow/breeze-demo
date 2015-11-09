@@ -13,12 +13,15 @@
     }
 
     // For use with Breeze
+    //var remoteServerName = 'http://ggmugbzdemo.azurewebsites.net/';
+    var remoteServerName = 'http://localhost:34915/'
     var remoteServiceName = 'breeze/bzdemo1';  
-
+    
     var config = {
         appErrorPrefix: '[ggmugBz Error] ',
         appTitle: 'GGMUG Breeze Demo',
-        remoteServiceName: remoteServiceName,
+        remoteServerName: remoteServerName,
+        remoteServiceName: remoteServiceName
     };
 
     core.value('config', config);

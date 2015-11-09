@@ -7,7 +7,8 @@
         'app.layout',
         'breeze.angular',
         'page.admin',
-        'page.dashboard'
+        'page.dashboard',
+        'page.items'
     ]);
 
 })();
