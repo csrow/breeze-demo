@@ -22,9 +22,19 @@
                     controllerAs: 'vm',
                     title: 'Items',
                     settings: {
-                        nav: 3,
+                        nav: 2,
                         content: '<i class="fa fa-file-text-o"></i> Items'
                     }
+                }
+            },
+            {
+                state: 'items.edit',
+                config: {
+                    url: '/edit',
+                    templateUrl: 'app/pageItems/items.edit.html',
+                    controller: 'ItemsController',
+                    controllerAs: 'vm',
+                    title: 'Items Edit',
                 }
             }
         ];

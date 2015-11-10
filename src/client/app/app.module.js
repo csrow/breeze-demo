@@ -6,7 +6,6 @@
         'app.widgets',
         'app.layout',
         'breeze.angular',
-        'page.admin',
         'page.dashboard',
         'page.items'
     ]);

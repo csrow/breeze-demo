@@ -15,7 +15,7 @@
         vm.navline = {
             title: config.appTitle,
             text: 'Chi Row  - csrow@hotmail.com',
-            link: ''
+            link: 'https://github.com/csrow/breeze-demo'
         };
 
         activate();
