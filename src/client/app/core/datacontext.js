@@ -44,12 +44,12 @@
         localsValid.item = true;
         localsValid.order = true;
         localsValid.detail= true;
-        logger.success("Retrieved Initial data", data, 'Lookups');
+        logger.success('Retrieved Initial data', data, 'Lookups');
         return true;
       }
       
       function queryFailed(e){
-        logger.error('Retrival failed', e, "Lookups");  
+        logger.error('Retrival failed', e, 'Lookups');  
       }
     }
   }

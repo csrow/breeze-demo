@@ -23,7 +23,7 @@
                     title: 'Items',
                     settings: {
                         nav: 3,
-                        content: '<i class="fa fa-filw-text-o"></i> Items'
+                        content: '<i class="fa fa-file-text-o"></i> Items'
                     }
                 }
             }
