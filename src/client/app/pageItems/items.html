@@ -9,9 +9,30 @@
                         <a ui-sref="items.edit">Test</a>
                         <div ui-view></div>
                     </div>
-                    <div class="widget-foot">
-                        <div class="clearfix"></div>
-                    </div>
+                    <!--<div class="row">-->
+                        <div class="widget wgreen col-md-6">
+                            <div data-cc-widget-header title="Items List"></div>
+                                <div class="widget-content text-info">
+                                    <table at-table at-list="vm.itemWithCount" at-config="vm.config" at-paginated class="table table-condensed table-striped">
+                                        <thead>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td at-title='Name'>{{item.name}}</td>
+                                                <td at-title='Description'>{{item.description}}</td>
+                                                <td at-title='Price'>{{item.price}}</td>
+                                                <td><button type="button" data-ng-show="item.count==0" data-ng-click="vm.delete(item)">Delete</button></td>
+                                                <td><button type="button" data-ng-click="vm.startEdit(item)">Edit</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <at-pagination at-config="vm.config" at-list="vm.itemWithCount"></at-pagination>
+                                </div>
+                                <div class="widget-foot">
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    <!--</div>-->
                 </div>
             </div>
         </div>
