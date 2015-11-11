@@ -5,12 +5,12 @@
         .module('page.items')
         .controller('ItemsController', ItemsController);
 
-    ItemsController.$inject = ['$q', 'datacontext', 'logger'];
+    ItemsController.$inject = ['$q', 'datacontext', 'logger', '$state'];
     /* @ngInject */
-    function ItemsController($q, datacontext, logger) {
+    function ItemsController($q, datacontext, logger, $state) {
         var vm = this;
         vm.news = {
-            title: 'Dry Cleaning Service Items List',
+            title: 'Dry Cleaning Service Items',
             description: 'Items maintenance screen'
         };
         vm.title = 'Items';
@@ -18,13 +18,13 @@
         vm.items = [];
         vm.itemWithCount = [];
         vm.itemsArraySize = 0;
-        vm.newItem = "";
-        vm.editItem = "";
+        vm.newItem = {};
+        vm.editItem = {};
         vm.inEdit = false;
         vm.inEditItem = {};
 
-        /*vm.addNew = addNew;
-        vm.delete = deleteOne;
+        vm.addNew = addNew;
+        /*vm.delete = deleteOne;
         vm.startEdit = startEdit;
         vm.cancelEdit = cancelEdit;
         vm.saveEdit = saveEdit;*/
@@ -41,6 +41,11 @@
             return $q.all(promises).then(function() {
                 logger.info('Activated Items View');
             });
+        }
+        
+        function addNew() { 
+            $state.go('items.add')
+            return;
         }
         
         function getItems() {

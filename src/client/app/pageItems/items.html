@@ -3,11 +3,14 @@
         <div class="container">
             <div class="row">
                 <div class="widget wviolet">
-                    <div ht-widget-header title="{{vm.title}}"></div>
+                    <div ht-widget-header title="{{vm.news.title}}"></div>
                     <div class="widget-content user">
-                        <h3>Items page</h3>
-                        <a ui-sref="items.edit">Test</a>
-                        <div ui-view></div>
+                        <div ui-view>
+                            <h3>Items List  ({{vm.itemsArraySize}} items)</h3>
+                            <button class="btn btn-info" type="button" data-ng-click="vm.addNew()">
+                                Add New Item
+                            </button>
+                        </div>
                     </div>
                     <!--<div class="row">-->
                         <div class="widget wgreen col-md-6">

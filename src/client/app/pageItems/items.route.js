@@ -28,6 +28,16 @@
                 }
             },
             {
+                state: 'items.add',
+                config: {
+                    url: '/add',
+                    templateUrl: 'app/pageItems/items.add.html',
+                    controller: 'ItemsController',
+                    controllerAs: 'vm',
+                    title: 'Items Add',
+                }
+            },
+            {
                 state: 'items.edit',
                 config: {
                     url: '/edit',

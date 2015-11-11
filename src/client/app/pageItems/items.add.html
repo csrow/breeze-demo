@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col-md-2"><h3>Add New Item</h3></div>
+	<div class="col-md-3">
+		<button class="btn btn-primary" type="button" data-ng-click="vm.saveAdd()">SAVE</button>
+		<button class="btn btn-warning" type="button" data-ng-click="vm.cancelAdd()">CANCEL</button>	
+	</div>
+</div>	
+<form name="newItemForm">
+<div class="row">
+	<div class="form-group">
+		<label>Name : </label>
+    	<input type="text" name="name" class="form-control" ng-model="vm.newItem.name" ng-maxlength=50 ng-required="true" />
+	</div>
+	<div class="form-group">
+		<label>Description : </label>
+    	<input type="text" name="desc" class="form-control" ng-model="vm.newItem.description" ng-maxlength=50  ng-required="true" />
+	</div>	
+	<div class="form-group">
+		<label>Price : </label>
+    	<input type="text" name="price" class="form-control" ng-model="vm.newItem.price" ng-pattern="/^\d{1,5}(\.\d{1,2})?$/" ng-required="true" />
+	</div>
+	<p class="alert alert-danger" ng-if="newItemForm.name.$touched" ng-show="newItemForm.name.$error.required">Need to enter NAME.</p>
+	<p class="alert alert-danger" ng-if="newItemForm.desc.$touched" ng-show="newItemForm.desc.$error.required">Need to enter DESCRIPTION.</p>
+	<p class="alert alert-danger" ng-if="newItemForm.price.$touched" ng-show="newItemForm.price.$error.required">Need to enter PRICE.</p>
+	<p class="alert alert-danger" ng-if="newItemForm.price.$touched" ng-show="newItemForm.price.$error.pattern">Please enter 2 digit number for PRICE.</p>
+</div>
+</form>
