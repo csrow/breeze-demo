@@ -5,38 +5,40 @@
         .module('page.items')
         .controller('ItemsController', ItemsController);
 
-    ItemsController.$inject = ['$q', 'datacontext', 'logger', '$state'];
+    ItemsController.$inject = ['$q', 'datacontext', 'logger', '$state', '$scope', '$location'];
     /* @ngInject */
-    function ItemsController($q, datacontext, logger, $state) {
+    function ItemsController($q, datacontext, logger, $state, $scope, $location) {
         var vm = this;
         vm.news = {
             title: 'Dry Cleaning Service Items',
             description: 'Items maintenance screen'
         };
-        var goRemote = true;
         vm.title = 'Items';
         
+//- variables ----------------------------------------------------        
         vm.items = [];
         vm.itemsArraySize = 0;
         vm.newItem = {};
         vm.editItem = {};
         vm.inEdit = false;
         vm.inEditItem = {};
-
+        
+//- functions names ---------------------------------------------
         vm.addNew = addNew;
         vm.saveAdd = saveAdd;
         vm.cancelAdd = cancelAdd;
         vm.delete = deleteOne;
-        /*vm.delete = deleteOne;
-        vm.startEdit = startEdit;
-        vm.cancelEdit = cancelEdit;
-        vm.saveEdit = saveEdit;*/
-
+        //vm.startEdit = startEdit;
+        //vm.cancelEdit = cancelEdit;
+        //vm.saveEdit = saveEdit;
+        
+//- angular table config ------------------------------
         vm.config = {
             itemsPerPage: 10,
             fillLastPage: true
         };
         
+//- start ---------------------------------------------        
         activate();
 
        function activate() {
@@ -45,21 +47,39 @@
                 logger.info('Activated Items View');
             });
         }
+  
+  //- end ---------------------------------------------
+  // Problem - this is getting called on all location changes.
+ /*       $scope.$on("$locationChangeStart", function (event) {
+            if (datacontext.noPendingChanges()){return;}
+            if (!confirm('Discard any pending changes and Leave?')) {
+                event.preventDefault();
+                return;
+            }
+            datacontext.cancelChanges();
+        });      */
         
-        function addNew() { 
+ //- function definition --------------------------------------       
+        function addNew() {
             $state.go('items.add');
         }
         
         function saveAdd() {
-            return datacontext.addNewItem(vm.newItem)
-                .then(function(){
-                    logger.success("New Item Added","","Item Add");
-                   cancelAdd();
-                });
+            checkItemDuplicate(vm.newItem.name)
+                .then (function(duplicate) {
+                    if (duplicate) {
+                        alert ('Item ' + vm.newItem.name + 'already in the system.');
+                        return;    
+                    }
+                    datacontext.addNewItem(vm.newItem)
+                        .then(function(){
+                            logger.success("New Item Added","","Item Add");
+                            cancelAdd();
+                        });
+                    });
         }
         
         function cancelAdd() {
-            vm.newItem = {};
             $state.go('items','',{reload:true});
         }
         
@@ -74,8 +94,8 @@
                 );
         }
         
-        function getItems(go) {
-            return datacontext.getItems(go)
+        function getItems() {
+            return datacontext.getItems()
             .then(function (data) {
                 vm.items = data;
                 vm.itemsArraySize = vm.items.length;
@@ -100,6 +120,10 @@
             .then(function (data) {
                 return data;
             });
+        }
+        
+        function checkItemDuplicate(name) {
+            return datacontext.checkItemDuplicate(name)    
         }
     }
 })();

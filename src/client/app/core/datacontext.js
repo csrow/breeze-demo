@@ -34,7 +34,10 @@
         getDetailsItemCount: getDetailsItemCount,
         addNewItem: addNewItem,
         deleteItem: deleteItem,
-        saveChanges: saveChanges
+        saveChanges: saveChanges,
+        noPendingChanges: noPendingChanges,
+        cancelChanges: cancelChanges,
+        checkItemDuplicate: checkItemDuplicate
       };
       return service;
       
@@ -55,15 +58,12 @@
           return true;
         }
       }
-      
+//-------------------------------------------------------------------      
       function getItems(goRemote) {
-        var orderBy = 'name';
         var items;
-
         var query = new breeze.EntityQuery()
           .from('Items')
-          .orderBy(orderBy);
-
+          .orderBy('name');
         if (localsValid.item && !goRemote) {
           items = _getLocal(query);
           return $q.when(items);
@@ -79,13 +79,13 @@
           return items;
         }
       }
-      
+//-------------------------------------------------------------------      
       function getDetailsItemCount(id, index) {
         var count = 0;
         var query = new breeze.EntityQuery()
           .from('Details')
           .where(id, '==', index)
-          .take(0).inlineCount()
+          .take(0).inlineCount();
 
         if (localsValid.detail) {
           var tempDetail = _getLocal(query);
@@ -103,15 +103,28 @@
           return count;
         }
       }
-      
-      function addNewItem(newEntry){
+//-------------------------------------------------------------------  
+    function checkItemDuplicate(name) {
+        var query = new breeze.EntityQuery()
+            .from('Items')
+            .where('name', '==', name);
+        return manager.executeQuery(query)
+            .then(success)
+            .catch(_fail);
+            
+        function success(data) {
+            return (data.results.length > 0) ? true: false;
+        }      
+    }    
+//-------------------------------------------------------------------      
+      function addNewItem(newEntry) {
         var newItem = manager.createEntity('Item');
         newItem.name = newEntry.name;
         newItem.description = newEntry.description;
         newItem.price = newEntry.price;
         return saveChanges();
       }
-      
+//-------------------------------------------------------------------      
       function deleteItem(item) {
       if (item) {
         var aspect = item.entityAspect;
@@ -119,7 +132,15 @@
         return saveChanges();
       }
     }
-      
+ //-------------------------------------------------------------------    
+    function noPendingChanges() {
+        return !manager.hasChanges();
+    }
+//-------------------------------------------------------------------  
+    function cancelChanges() {
+        manager.rejectChanges();
+    }    
+//-------------------------------------------------------------------      
     function saveChanges() {
       if (!manager.hasChanges()) {
           return $q.when({});
@@ -154,7 +175,6 @@
         return error;
       }
     }
- 
  //- local functions --------------------------------------------     
       function _getLocal(query) {
         return manager.executeQueryLocally(query);

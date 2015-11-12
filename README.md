@@ -64,16 +64,13 @@ The app has 4 feature modules and depends on a series of external modules and cu
 
 ```
 app --> [
-        app.admin --> [
+        page.dashboard --> [
             app.core,
             app.widgets
         ],
-        app.dashboard --> [
+        page.items --> [
             app.core,
             app.widgets
-        ],
-        app.layout --> [
-            app.core
         ],
         app.widgets,
 		app.core --> [
@@ -82,7 +79,9 @@ app --> [
 			ui.router,
 			blocks.exception,
 			blocks.logger,
-			blocks.router
+			blocks.router,
+            ngplus,
+            angular-table
 		]
     ]
 ```
