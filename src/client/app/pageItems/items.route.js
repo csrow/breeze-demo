@@ -32,8 +32,6 @@
                 config: {
                     url: '/add',
                     templateUrl: 'app/pageItems/items.add.html',
-                    controller: 'ItemsController',
-                    controllerAs: 'vm',
                     title: 'Items Add',
                 }
             },
@@ -42,8 +40,6 @@
                 config: {
                     url: '/edit',
                     templateUrl: 'app/pageItems/items.edit.html',
-                    controller: 'ItemsController',
-                    controllerAs: 'vm',
                     title: 'Items Edit',
                 }
             }

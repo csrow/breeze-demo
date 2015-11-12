@@ -26,11 +26,10 @@
 //- functions names ---------------------------------------------
         vm.addNew = addNew;
         vm.saveAdd = saveAdd;
-        vm.cancelAdd = cancelAdd;
+        vm.cancelNow = cancelNow;
         vm.delete = deleteOne;
-        //vm.startEdit = startEdit;
-        //vm.cancelEdit = cancelEdit;
-        //vm.saveEdit = saveEdit;
+        vm.startEdit = startEdit;
+        vm.saveEdit = saveEdit;
         
 //- angular table config ------------------------------
         vm.config = {
@@ -58,12 +57,26 @@
             }
             datacontext.cancelChanges();
         });      */
-        
- //- function definition --------------------------------------       
+ //------------------------------------------------------------       
+        function startEdit(item) {
+            $state.go('items.edit');
+            vm.editItem = item;
+            vm.inEditItem.description = item.description;
+            vm.inEditItem.price = item.price;
+            vm.inEdit = true;    
+        }        
+ //------------------------------------------------------------  
+        function saveEdit() {
+            vm.editItem.description = vm.inEditItem.description;
+            vm.editItem.price = vm.inEditItem.price;
+            datacontext.saveChanges()
+                .then(cancelNow());
+        }     
+ //------------------------------------------------------------       
         function addNew() {
             $state.go('items.add');
         }
-        
+//------------------------------------------------------------              
         function saveAdd() {
             checkItemDuplicate(vm.newItem.name)
                 .then (function(duplicate) {
@@ -74,15 +87,15 @@
                     datacontext.addNewItem(vm.newItem)
                         .then(function(){
                             logger.success("New Item Added","","Item Add");
-                            cancelAdd();
+                            cancelNow();
                         });
                     });
         }
-        
-        function cancelAdd() {
+ //------------------------------------------------------------               
+        function cancelNow() {
             $state.go('items','',{reload:true});
         }
-        
+ //------------------------------------------------------------               
         function deleteOne(item) {
             var check = confirm("Delete " + item.name + " ?");
             if (!check) { return };
@@ -93,7 +106,7 @@
                     })
                 );
         }
-        
+ //------------------------------------------------------------               
         function getItems() {
             return datacontext.getItems()
             .then(function (data) {
@@ -102,7 +115,7 @@
                 return getCounts();
             });
         }
-        
+ //------------------------------------------------------------               
         function getCounts() {
             var fieldId = 'itemID';
             var index;
@@ -114,14 +127,14 @@
                 });
             })
         }
-        
+ //------------------------------------------------------------               
         function getCount(fieldId, index, eIndex) {
             return datacontext.getDetailsItemCount(fieldId, index)
             .then(function (data) {
                 return data;
             });
         }
-        
+ //------------------------------------------------------------               
         function checkItemDuplicate(name) {
             return datacontext.checkItemDuplicate(name)    
         }

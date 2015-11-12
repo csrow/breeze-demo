@@ -1,1 +1,25 @@
-<h1>Hi, this is Edit</h1>
+<form name="editItemForm">
+<div class="row">
+	<div class="col-md-2"><h3>Edit Item </h3></div>
+	<div class="col-md-3">
+		<button class="btn btn-primary" type="button" data-ng-show="editItemForm.$valid" data-ng-click="vm.saveEdit()">SAVE</button>
+		<button class="btn btn-warning" type="button" data-ng-click="vm.cancelNow()">CANCEL</button>	
+	</div>
+</div>	
+<div class="row">
+	<div>
+		<h5>Name : <span class="label label-success">{{vm.editItem.name}}</span></h5>
+	</div>
+	<div class="form-group">
+		<label>Description : </label>
+    	<input type="text" name="desc" class="form-control" ng-model="vm.inEditItem.description" ng-maxlength=50  ng-required="true" />
+	</div>	
+	<div class="form-group">
+		<label>Price : </label>
+    	<!--<input type="text" name="price" class="form-control" ng-model="vm.inEditItem.price" ng-pattern="/^\d{1,5}(\.\d{1,2})?$/" ng-required="true" />-->
+    	<input type="text" name="price" class="form-control" ng-model="vm.inEditItem.price" ng-required="true" />
+	</div>
+	<p class="alert alert-danger" ng-if="editItemForm.desc.$touched" ng-show="editItemForm.desc.$error.required">Need to enter DESCRIPTION.</p>
+	<p class="alert alert-danger" ng-if="editItemForm.price.$touched" ng-show="editItemForm.price.$error.required">Need to enter PRICE.</p>
+	<!--<p class="alert alert-danger" ng-if="editItemForm.price.$touched" ng-show="editItemForm.price.$error.pattern">Please enter 2 digit number for PRICE.</p>-->
+</div>

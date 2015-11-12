@@ -172,6 +172,7 @@
                     " You may have to restart the app.";
         }
           logger.error(reason,"","Save Operation Error");
+          getInit();
         return error;
       }
     }
