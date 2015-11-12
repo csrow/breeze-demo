@@ -98,7 +98,7 @@
  //------------------------------------------------------------               
         function deleteOne(item) {
             var check = confirm("Delete " + item.name + " ?");
-            if (!check) { return };
+            if (!check) { return; }
             datacontext.deleteItem(item)
                 .then(getItems()
                     .then(function () {
@@ -125,7 +125,7 @@
                 .then(function (data) {
                     vm.items[eIndex].count = data;
                 });
-            })
+            });
         }
  //------------------------------------------------------------               
         function getCount(fieldId, index, eIndex) {
@@ -136,7 +136,7 @@
         }
  //------------------------------------------------------------               
         function checkItemDuplicate(name) {
-            return datacontext.checkItemDuplicate(name)    
+            return datacontext.checkItemDuplicate(name);    
         }
     }
 })();

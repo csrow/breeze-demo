@@ -75,7 +75,7 @@
         function success(data) {
           items = data.results;
           localsValid.item = true;
-          logger.success("Items Fetched " + items.length, null, 'Items Get')
+          logger.success("Items Fetched " + items.length, null, 'Items Get');
           return items;
         }
       }
@@ -90,8 +90,8 @@
         if (localsValid.detail) {
           var tempDetail = _getLocal(query);
           tempDetail.forEach(function (element) {
-            if (element[id] == index) { count++ };
-          })
+            if (element[id] === index) { count++; }
+          });
           return $q.when(count);
         } else {
           return manager.executeQuery(query)
