@@ -13,10 +13,10 @@
             title: 'Dry Cleaning Service Items',
             description: 'Items maintenance screen'
         };
+        var goRemote = true;
         vm.title = 'Items';
         
         vm.items = [];
-        vm.itemWithCount = [];
         vm.itemsArraySize = 0;
         vm.newItem = {};
         vm.editItem = {};
@@ -24,6 +24,9 @@
         vm.inEditItem = {};
 
         vm.addNew = addNew;
+        vm.saveAdd = saveAdd;
+        vm.cancelAdd = cancelAdd;
+        vm.delete = deleteOne;
         /*vm.delete = deleteOne;
         vm.startEdit = startEdit;
         vm.cancelEdit = cancelEdit;
@@ -44,15 +47,37 @@
         }
         
         function addNew() { 
-            $state.go('items.add')
-            return;
+            $state.go('items.add');
         }
         
-        function getItems() {
-            return datacontext.getItems()
+        function saveAdd() {
+            return datacontext.addNewItem(vm.newItem)
+                .then(function(){
+                    logger.success("New Item Added","","Item Add");
+                   cancelAdd();
+                });
+        }
+        
+        function cancelAdd() {
+            vm.newItem = {};
+            $state.go('items','',{reload:true});
+        }
+        
+        function deleteOne(item) {
+            var check = confirm("Delete " + item.name + " ?");
+            if (!check) { return };
+            datacontext.deleteItem(item)
+                .then(getItems()
+                    .then(function () {
+                        logger.success('Item deleted.',"","Delete Item");
+                    })
+                );
+        }
+        
+        function getItems(go) {
+            return datacontext.getItems(go)
             .then(function (data) {
                 vm.items = data;
-                vm.itemWithCount = vm.items;
                 vm.itemsArraySize = vm.items.length;
                 return getCounts();
             });
@@ -65,7 +90,7 @@
                 index = item.itemID;
                 getCount(fieldId, index, eIndex)
                 .then(function (data) {
-                    vm.itemWithCount[eIndex].count = data;
+                    vm.items[eIndex].count = data;
                 });
             })
         }

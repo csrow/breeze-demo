@@ -1,11 +1,12 @@
+	
+<form name="newItemForm">
 <div class="row">
 	<div class="col-md-2"><h3>Add New Item</h3></div>
 	<div class="col-md-3">
-		<button class="btn btn-primary" type="button" data-ng-click="vm.saveAdd()">SAVE</button>
+		<button class="btn btn-primary" type="button" data-ng-show="newItemForm.$valid" data-ng-click="vm.saveAdd()">SAVE</button>
 		<button class="btn btn-warning" type="button" data-ng-click="vm.cancelAdd()">CANCEL</button>	
 	</div>
 </div>	
-<form name="newItemForm">
 <div class="row">
 	<div class="form-group">
 		<label>Name : </label>
